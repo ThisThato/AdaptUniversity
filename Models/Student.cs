@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AdaptUniversity.Enums;
+
 
 namespace AdaptUniversity.Models
 {
@@ -10,11 +9,15 @@ namespace AdaptUniversity.Models
         public string ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public List<Course> Courses { get; set; }
+        public Grade? Grade { get; set;  }
         
         public Student(string studentNumber)
         {
             this.StudentNumber = studentNumber;
+        }
+        public Student()
+        {
+
         }
 
     }

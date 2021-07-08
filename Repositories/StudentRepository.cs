@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AdaptUniversity.Interfaces;
 using AdaptUniversity.Models;
-using System.Linq;
+using System.Collections.Generic;
+
 
 namespace AdaptUniversity.Repositories
 {
-    public class StudentRepository
+    public class StudentRepository : IRepository<Student>
     {
+    
         private List<Student> students;
 
         public StudentRepository()
@@ -15,48 +15,41 @@ namespace AdaptUniversity.Repositories
             students = new List<Student>();
         }
 
-        public void AddStudent(Student student)
+        public void Add(Student student)
+        { 
+            students.Add(student);
+        }  
+
+        public Student Get(string number)
         {
-            if(!students.Exists(s => s.StudentNumber == student.StudentNumber))
-                students.Add(student);
-            else
-                throw new Exception("Student already added");
+            return students.Find(s => s.StudentNumber == number);
         }
 
-        public Student GetStudentByStudentNumber(string studentNumber)
+        public Student GetByID(string ID)
         {
-            Student student = students.Find(s => s.StudentNumber == studentNumber);
-            if (student != null)
-            {
-                return student;
-            }
-            else
-                throw new Exception("Student not found. Invalid student ID.");
+            return students.Find(s => s.ID == ID);
         }
 
-        public List<Student> GetAllStudents()
+        public Student Find(Student student)
         {
-           return students != null ? students : throw new Exception("No students found");
+           return students.Find(s => s == student);
         }
 
-        public void UpdateStudent(Student student)
+        public void Delete(Student student)
         {
-
-            Student item = students.FirstOrDefault(s => s.StudentNumber == student.StudentNumber);
-
-            if (item != null)
-                students[students.IndexOf(item)] = student;
-            else
-                throw new Exception("Student not found");
+            students.Remove(student);
         }
 
-        public void DeleteStudent(string studentNumber)
+        public void Update(Student newStudent, Student oldStudent)
         {
-          Student student = students.FirstOrDefault(s => s.StudentNumber == studentNumber);
-            if (student != null)
-                students.Remove(student);
-            else
-                throw new Exception("Student not found. Invalid student ID.");
+           students[students.IndexOf(oldStudent)] = newStudent;
         }
-    }
+
+        public IEnumerable<Student> GetAll()
+        {
+            return students;
+        }
+
+    }     
 }
+

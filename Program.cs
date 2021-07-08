@@ -1,24 +1,45 @@
-﻿using AdaptUniversity.Controllers;
-using AdaptUniversity.Models;
+﻿using AdaptUniversity.Models;
+using AdaptUniversity.Logic;
+using AdaptUniversity.Factories;
 using System;
-using System.Collections.Generic;
 
 namespace AdaptUniversity
 {
     class Program
     {
+      
         static void Main(string[] args)
         {
-            StudentController studentController = new StudentController();
 
-            studentController.Enroll(new Student("2015072990") { ID = "2015072990", FirstName = "Thato" });
+            StudentLogic studentLogic = new StudentLogic();
+            
+            string ID = "20020312345679", StudentNumber = "2020123700",  FirstName = "John", LastName = "Doe", type="Student";
+            string courseId = "00215", title = "Data Structures"; int credits = 16;
 
+            IPerson person = PersonFactory<IPerson>.Create(ID, StudentNumber, FirstName, LastName, type);
+            Student student = (Student)person;
+              
+            studentLogic.AddStudent(student);
 
-            Student student = studentController.GetStudent("2015072990");
+            Student std = studentLogic.GetStudentByStudentNumber(StudentNumber);
+            Course course = new Course(courseId)
+            {
+                Title = title, 
+                Credits = credits
+            };
 
-            Console.WriteLine($"{student.StudentNumber} {student.FirstName}");
+            Enrollment enrollment = EnrollmentFactory.CreateEnrollment(course, std, "Enrollment-021");
 
-            Console.WriteLine("Hello World!");
+            EnrollmentLogic enrollmentLogic = new EnrollmentLogic();
+            enrollmentLogic.Enroll(enrollment);
+
+            string variable = enrollmentLogic.GetEnrollmentByID("Enrollment-021").course.Title;
+
+            Console.WriteLine(variable);
+            Console.WriteLine(std.LastName);
+
+            Console.ReadLine();
         }
-    }
+
+     }
 }
