@@ -1,9 +1,11 @@
-﻿using AdaptUniversity.Models;
+﻿using AdaptUniversity.Interfaces;
+using AdaptUniversity.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AdaptUniversity.Repositories
 {
-    public class EnrollmentRepository
+    public class EnrollmentRepository : IRepository<Enrollment>
     {
         private List<Enrollment> enrollments;
 
@@ -12,41 +14,34 @@ namespace AdaptUniversity.Repositories
             enrollments = new List<Enrollment>();
         }   
 
-        public void Create(Course course, Student student)
+        public void Add(Enrollment enrollment)
         {
-            enrollments.Add(new Enrollment
-            {
-                course = course,
-                student = student
-            });
+            enrollments.Add(enrollment);
         }
 
-        public void Update(Enrollment newEnrollment, Enrollment oldEnrollment)
+        public Enrollment Get(string enrollmentId)
+        {
+           return  enrollments.Find(e => e.EnrollmentId == enrollmentId);
+        }
+
+        public Enrollment Find(Enrollment enrollment)
+        {
+            return enrollments.FirstOrDefault(e => e == enrollment);
+        }
+
+        public void Delete(Enrollment enrollment)
+        {
+            enrollments.Remove(enrollment);
+        }
+
+        public void Update(Enrollment oldEnrollment, Enrollment newEnrollment)
         {
             enrollments[enrollments.IndexOf(oldEnrollment)] = newEnrollment;
         }
 
-        public bool Remove(string courseTitle, Student student)
+        public IEnumerable<Enrollment> GetAll()
         {
-            Enrollment enrollment = Find(courseTitle, student);
-            if (enrollment != null)
-            {
-                enrollments.Remove(enrollment);
-                return true;
-            }
-            else
-                return false;
-
+            return enrollments;
         }
-
-        public Enrollment Find(string courseTitle, Student student)
-        {
-            Enrollment enrollment = enrollments.Find(e => e.course.Title == courseTitle);
-            if (enrollment.student == student)
-                return enrollment;
-            else
-               return null;
-        }
-
     }
 }

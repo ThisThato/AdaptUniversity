@@ -1,30 +1,25 @@
 ﻿using AdaptUniversity.Models;
+using System;
 
 namespace AdaptUniversity.Factories
 {
-    public static class PersonFactory<T> where T : IPerson  
+    public static class PersonFactory<T> where T : class,  IPerson, new()
     {
-        public static IPerson Create(string iD, string number, string firstName, string lastName, string type)
+
+
+        public static IPerson Create(string id, string number, string firstName, string lastName)
         {
-            if (type == "Student")
+
+            T item = new T()
             {
-                return new Student(number)
-                {
-                    ID = iD,
-                    FirstName = firstName,
-                    LastName = lastName
-                };
-            }
-            else
-            {
-                return new Lecturer()
-                {
-                    ID = iD,
-                    FirstName = firstName, 
-                    LastName = lastName, 
-                    LectureID = number
-                };
-            }
+                ID = id,
+                FirstName = firstName,
+                LastName = lastName,
+                UniqueID = number
+            };
+            return item;
+
+           
            
         }
     }

@@ -5,10 +5,11 @@ using System.Text;
 
 namespace AdaptUniversity
 {
-    interface IPerson
+    public interface IPerson
     {
         public string ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public  string UniqueID { get; set; }
     }
 }

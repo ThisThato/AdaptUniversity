@@ -17,10 +17,10 @@ namespace AdaptUniversity.Logic
 
         public void AddStudent(Student student)
         {
-            if (repository.Find(student) != null)
+            if (repository.Find(student) == null)
                 repository.Add(student);
             else
-                throw new Exception($"Student - {student.StudentNumber} already Exixts");
+                throw new Exception($"Student - {student.UniqueID} already Exixts");
         }
 
         public Student GetStudentByStudentNumber(string studentNumber)
@@ -43,7 +43,7 @@ namespace AdaptUniversity.Logic
             if (oldStudent != null)
                 repository.Update(newStudent, oldStudent);
             else
-                throw new Exception($"Student - {oldStudent.StudentNumber} not found");
+                throw new Exception($"Student - {oldStudent.UniqueID} not found");
         }
 
         public void RemoveStudent(Student _student)
@@ -52,7 +52,7 @@ namespace AdaptUniversity.Logic
             if (student != null)
                 repository.Delete(student);
             else
-                throw new Exception($"Unable to delete. /n Student - {student.StudentNumber} not found.");
+                throw new Exception($"Unable to delete. /n Student - {student.UniqueID} not found.");
         }
     }
 }

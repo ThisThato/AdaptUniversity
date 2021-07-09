@@ -1,6 +1,7 @@
 ﻿using AdaptUniversity.Interfaces;
 using AdaptUniversity.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace AdaptUniversity.Repositories
@@ -22,7 +23,7 @@ namespace AdaptUniversity.Repositories
 
         public Student Get(string number)
         {
-            return students.Find(s => s.StudentNumber == number);
+            return students.Find(s => s.UniqueID == number);
         }
 
         public Student GetByID(string ID)
@@ -32,6 +33,7 @@ namespace AdaptUniversity.Repositories
 
         public Student Find(Student student)
         {
+           //return  students.FirstOrDefault(s => s.StudentNumber == student.StudentNumber);
            return students.Find(s => s == student);
         }
 

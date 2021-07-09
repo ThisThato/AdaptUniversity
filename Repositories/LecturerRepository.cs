@@ -8,7 +8,7 @@ namespace AdaptUniversity.Repositories
 {
     public class LecturerRepository : IRepository<Lecturer>
     {
-        private List<Lecturer> lecturers;
+        private readonly List<Lecturer> lecturers;
 
         public LecturerRepository()
         {
@@ -32,7 +32,7 @@ namespace AdaptUniversity.Repositories
 
         public Lecturer Get(string number)
         {
-            return lecturers.Find(l => l.LectureID == number);
+            return lecturers.Find(l => l.UniqueID == number);
         }
 
         public IEnumerable<Lecturer> GetAll()
@@ -42,7 +42,7 @@ namespace AdaptUniversity.Repositories
 
         public Lecturer GetByID(string idNumber)
         {
-            return lecturers.Find(l => l.ID == idNumber);
+            return lecturers.Find(l => l.UniqueID == idNumber);
         }
 
         public void Update(Lecturer oldEntity, Lecturer newEntity)

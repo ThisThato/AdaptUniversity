@@ -9,8 +9,6 @@ namespace AdaptUniversity.Interfaces
 
         T Get(string number);
         
-        T GetByID(string idNumber);
-        
         T Find(T enitity);
 
         void Delete(T entity);

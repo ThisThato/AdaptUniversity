@@ -6,8 +6,10 @@ namespace AdaptUniversity.Models
 {
     public class Enrollment
     {
-        public Student student{get; set; }
-        public Course course { get; set;  }
+        public string EnrollmentId { get; set; }
+        public Student Student{get; set; }
+        public Course Course { get; set;  }
 
+       
     }
 }
