@@ -12,6 +12,5 @@ namespace AdaptUniversity.Models
         public Grade? Grade { get; set;  }
         public string UniqueID { get; set; }
 
-
     }
 }

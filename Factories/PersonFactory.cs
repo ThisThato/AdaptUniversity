@@ -10,16 +10,22 @@ namespace AdaptUniversity.Factories
         public static IPerson Create(string id, string number, string firstName, string lastName)
         {
 
-            T item = new T()
+            try
             {
-                ID = id,
-                FirstName = firstName,
-                LastName = lastName,
-                UniqueID = number
-            };
-            return item;
-
-           
+                T item = new T()
+                {
+                    ID = id,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    UniqueID = number
+                };
+                return item;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
            
         }
     }

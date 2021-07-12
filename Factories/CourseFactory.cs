@@ -1,4 +1,5 @@
 ﻿using AdaptUniversity.Models;
+using System;
 
 namespace AdaptUniversity.Factories
 {
@@ -6,11 +7,20 @@ namespace AdaptUniversity.Factories
     {
         public static Course Create(string courseTitle, string courseId, int credits)
         {
-            return new Course(courseId)
+            try
             {
-                Title = courseTitle,
-                Credits = credits
-            };
+                return new Course(courseId)
+                {
+                    Title = courseTitle,
+                    Credits = credits
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+           
         }
 
 

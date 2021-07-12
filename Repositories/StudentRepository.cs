@@ -33,8 +33,8 @@ namespace AdaptUniversity.Repositories
 
         public Student Find(Student student)
         {
-           //return  students.FirstOrDefault(s => s.StudentNumber == student.StudentNumber);
-           return students.Find(s => s == student);
+           return  students.FirstOrDefault(s => s.UniqueID == student.UniqueID);
+          // return students.Find(s => s == student);
         }
 
         public void Delete(Student student)

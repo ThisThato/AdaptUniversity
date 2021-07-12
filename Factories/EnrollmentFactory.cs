@@ -1,19 +1,28 @@
 ﻿using AdaptUniversity.Models;
-
+using System;
 
 namespace AdaptUniversity.Factories
 {
     public class EnrollmentFactory
     {
 
-        public static Enrollment Create(Course course, Student student, string EnrollmentID)
+        public static Enrollment Create(Course course, Student student, string enrollmentID)
         {
-            return new Enrollment()
+            try
             {
-                Course = course, 
-                Student = student, 
-                EnrollmentId = EnrollmentID
-            };
+                return new Enrollment()
+                {
+                    Course = course,
+                    Student = student,
+                    EnrollmentId = enrollmentID
+                };
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+           
         }
     }
 }

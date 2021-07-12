@@ -28,7 +28,9 @@ namespace AdaptUniversity.Logic
         {
             if (repository.Find(enrollment) != null)
                 repository.Delete(enrollment);
-           
+            else
+                throw new Exception("Unable to UnEnroll. Enrollment not Found.");
+
         }
 
         public void UpdateEnrollment(Enrollment oldEnrollment, Enrollment newEnrollment)
@@ -39,29 +41,42 @@ namespace AdaptUniversity.Logic
                 throw new Exception("Unable to Update Enrollment. Enrollment does not exist.");
         }
 
-        public Enrollment GetEnrollmentByID(string EnrollmentID)
+        public Enrollment GetEnrollmentByID(string enrollmentID)
         {
-            Enrollment enrollment = repository.Get(EnrollmentID);
-            if (enrollment != null)
-                return enrollment;
+
+            Enrollment Enrollment = repository.Get(enrollmentID);
+            if (Enrollment != null)
+                return Enrollment;
             else
-                throw new Exception($"Invalid Enrollment ID {EnrollmentID}. Unable to Get Enrollment. ");
+                throw new Exception($"Enrollment - {enrollmentID} not found.");
         }
+           
 
         public Enrollment GetEnrollment(Enrollment entity)
         {
-            Enrollment enrollment = repository.Find(entity);
-            if (enrollment != null)
-                return enrollment;
+
+            Enrollment Enrollment = repository.Find(entity);
+            if (Enrollment != null)
+                return Enrollment;
             else
-                throw new Exception($"Invalid Enrollment - {entity}. Enrollment not found. ");
+            {
+                Console.WriteLine($"Invalid Enrollment - {entity}. Enrollment not found. ");
+                return null;
+            }
+
         }
 
        public IEnumerable<Enrollment> GetAllEnrollments()
         {
-            return repository.GetAll();
-        }
-
-      
+            try
+            {
+                return repository.GetAll();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }      
     }
 }

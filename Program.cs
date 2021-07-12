@@ -11,8 +11,8 @@ namespace AdaptUniversity
         static void Main(string[] args)
         {
 
-            StudentLogic studentLogic = new StudentLogic();
-            EnrollmentLogic enrollmentLogic = new EnrollmentLogic();
+            StudentLogic StudentLogic = new StudentLogic();
+            EnrollmentLogic EnrollmentLogic = new EnrollmentLogic();
 
 
             string id = "20020312345679", studentNumber = "2020123700", firstName = "John", lastName = "Doe", lectureNumber = "123456", type = "Student";
@@ -23,26 +23,20 @@ namespace AdaptUniversity
                 person = PersonFactory<Student>.Create(id, studentNumber, firstName, lastName);
             if (type == "Lecturer")
                 person = PersonFactory<Lecturer>.Create(id, lectureNumber, firstName, lastName);
-
-
-
-            Student student = (Student)person;
-
-
-            Student std = studentLogic.GetStudentByStudentNumber(studentNumber);
             Course course = CourseFactory.Create(courseId, title, credits);
-            Enrollment enrollment = EnrollmentFactory.Create(course, std, "Enrollment-021");
 
 
-            studentLogic.AddStudent(student);
-            enrollmentLogic.Enroll(enrollment);
+            Student Entity = (Student)person;
+            Enrollment Enrollment = EnrollmentFactory.Create(course, Entity, "Enrollment-021");
+            StudentLogic.AddStudent(Entity);
+            EnrollmentLogic.Enroll(Enrollment);
 
-
-            string variable = enrollmentLogic.GetEnrollmentByID("Enrollment-021").Course.Title;
-
+            Student Student = StudentLogic.GetStudentByStudentNumber(studentNumber);
+            string variable = EnrollmentLogic.GetEnrollmentByID("Enrollment-021").Course.Title;
+         
 
             Console.WriteLine(variable);
-            Console.WriteLine(std.LastName);
+            Console.WriteLine(Student.LastName);
 
             Console.ReadLine();
         }
