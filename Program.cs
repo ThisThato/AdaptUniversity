@@ -1,7 +1,8 @@
-﻿using AdaptUniversity.Models;
-using AdaptUniversity.Logic;
+﻿using System;
 using AdaptUniversity.Factories;
-using System;
+using Domain.Models;
+using Domain.Interfaces;
+using Logic;
 
 namespace AdaptUniversity
 {

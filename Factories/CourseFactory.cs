@@ -1,5 +1,5 @@
-﻿using AdaptUniversity.Models;
-using System;
+﻿using System;
+using Domain.Models;
 
 namespace AdaptUniversity.Factories
 {
